@@ -1,1 +1,1 @@
-# minitalk
+# Sinyal Nedir?
