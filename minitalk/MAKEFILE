@@ -1,9 +1,12 @@
-NAME =
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-RM	= rm -rf
+NAME	= minitalk
+SERVER	= server
+CLIENT	= client
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
+RM		= rm -f
 
-SRCS = 
+SRCS = server.c \
+client.c \
 		
 OBJS = $(SRCS:.c=.o)
 
