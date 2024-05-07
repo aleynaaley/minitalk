@@ -19,14 +19,13 @@ Yani C programlama dilinde sinyaller, işletim sistemi veya kullanıcı tarafın
  Fonksiyon, çağrılan işlemin kimlik numarasını (process ID veya PID olarak da bilinir) döndürür. Bu işlev, genellikle benzersiz geçici dosya adları oluşturan rutinler tarafından kullanılır.
  ```bash
 #include <stdio.h>
-#include <sys/types.h>
 #include <unistd.h>
 
 int main(void) {
     // Çağrılan fonksiyonun işlem kimliğini saklamak için değişken
     pid_t process_id;
 
-    // getpid() - çağrılan fonksiyonun işlem kimliğini döndürecek
+    // çağrılan fonksiyonun işlem kimliğini döndürecek
     process_id = getpid();
 
     // İşlem kimliğini yazdırma
@@ -36,7 +35,7 @@ int main(void) {
 }
 
  ```
-Bu kod parçası, çalıştırıldığında, çağrılan işlemin işlem kimliğini ekrana yazdırır. Bu işlem kimliği, işletim sistemi tarafından otomatik olarak atanır ve her işlem için benzersizdir. Fonksiyonun döndürdüğü değer pid_t tipindedir, bu tip genellikle unsigned int türünde bir veri tipidir
+Bu kod parçası, çalıştırıldığında, çağrılan işlemin işlem kimliğini ekrana yazdırır. Bu işlem kimliği, işletim sistemi tarafından otomatik olarak atanır ve her işlem için benzersizdir. Fonksiyonun döndürdüğü değer pid_t tipindedir, bu tip genellikle unsigned int türünde bir veri tipidir.
 # sinyalleri kullanarak veri değişim programı yazmak
  ```bash
 #include <stdio.h>
