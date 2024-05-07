@@ -12,7 +12,7 @@ Yani C programlama dilinde sinyaller, işletim sistemi veya kullanıcı tarafın
 - SIGILL (Illegal Instruction): Bu sinyal, bir programın geçersiz bir talimatı çalıştırmaya çalıştığında gönderilir. Bu, genellikle CPU'nun işlemci talimatlarını yanlış yorumladığında veya programın çalışma zamanında uygun olmayan bir talimatı işlemeye çalıştığında meydana gelir.genellikle işletim sistemi veya işlemci tarafından oluşturulan bir sinyaldir ve genellikle programın düzgün çalışmamasının bir sonucudur
 - SIGTERM: Bu sinyal, bir programın sonlandırılması için gönderilir. Örneğin, sistem kapatıldığında veya belirli bir işlem sonlandırılmak istendiğinde gönderilebilir.
 - SIGKILL: Bu sinyal, bir programı zorla sonlandırmak için gönderilir. Diğer sinyallerden farklı olarak, SIGKILL programın normal sonlandırılmasını beklemeksizin hemen sonlandırır.
-SIGUSR1 ve SIGUSR2 (Kullanıcı Tanımlı Sinyaller): Bu sinyaller, kullanıcı tarafından belirli eylemler için tanımlanabilir. Programın belirli bir noktasında kullanıcı tarafından tanımlanan özel bir eylemi tetiklemek için kullanılabilirler.
+- SIGUSR1 ve SIGUSR2 (Kullanıcı Tanımlı Sinyaller): Bu sinyaller, kullanıcı tarafından belirli eylemler için tanımlanabilir. Programın belirli bir noktasında kullanıcı tarafından tanımlanan özel bir eylemi tetiklemek için kullanılabilirler.
 
 # sinyalleri kullanarak veri değişim programı yazmak
  ```bash
