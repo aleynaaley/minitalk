@@ -36,6 +36,9 @@ int main(void) {
 
  ```
 Bu kod parçası, çalıştırıldığında, çağrılan işlemin işlem kimliğini ekrana yazdırır. Bu işlem kimliği, işletim sistemi tarafından otomatik olarak atanır ve her işlem için benzersizdir. Fonksiyonun döndürdüğü değer pid_t tipindedir, bu tip genellikle unsigned int türünde bir veri tipidir.
+
+- signal()
+  Bir sinyalin nasıl işleneceğini belirlemek için kullanılır.
 # sinyalleri kullanarak veri değişim programı yazmak
  ```bash
 #include <stdio.h>
