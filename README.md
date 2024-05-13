@@ -14,7 +14,7 @@ Yani C programlama dilinde sinyaller, işletim sistemi veya kullanıcı tarafın
 - SIGKILL: Bu sinyal, bir programı zorla sonlandırmak için gönderilir. Diğer sinyallerden farklı olarak, SIGKILL programın normal sonlandırılmasını beklemeksizin hemen sonlandırır.
 - SIGUSR1 ve SIGUSR2 (Kullanıcı Tanımlı Sinyaller): Bu sinyaller, kullanıcı tarafından belirli eylemler için tanımlanabilir. Programın belirli bir noktasında kullanıcı tarafından tanımlanan özel bir eylemi tetiklemek için kullanılabilirler.
 
-# Bazı Kullanılan Fonksiyonlar 
+# Kullanılan Bazı Fonksiyonlar 
  - getpid()
  Fonksiyon, çağrılan işlemin kimlik numarasını (process ID veya PID olarak da bilinir) döndürür. Bu işlev, genellikle benzersiz geçici dosya adları oluşturan rutinler tarafından kullanılır.
  ```bash
@@ -39,6 +39,39 @@ Bu kod parçası, çalıştırıldığında, çağrılan işlemin işlem kimliğ
 
 - signal()
   Bir sinyalin nasıl işleneceğini belirlemek için kullanılır.
+ ```bash
+
+void (*signal(int sig, void (*func)(int)))(int);
+
+ ```
+sig: Sinyal numarasını temsil eder ve SIG makroları ile uyumludur.
+func: Sinyal oluştuğunda çağrılacak fonksiyonu temsil eder. Eğer func SIG_DFL ise, varsayılan işleyici çağrılır. Eğer func SIG_IGN ise, sinyal yok sayılır. Eğer func bir fonksiyona işaret ederse, bir sinyal algılandığında varsayılan fonksiyon (SIG_DFL) çağrılır, ardından func fonksiyonu çağrılır.
+Yani sig ile nerede, ne durumda gelen sinyalleri alacağı diğeri func da bu duurmda ne çalışacağını belirler.
+
+ ```
+#include <stdio.h>
+#include <signal.h>
+
+// Sinyal işleyici fonksiyonu
+void signal_handler(int sig) {
+    printf("Ctrl+C tuş kombinasyonuna basıldı!\n");
+    exit(EXIT_SUCCESS);
+}
+
+int main() {
+    // SIGINT sinyali (Ctrl+C) için işleyiciyi ayarla
+    signal(SIGINT, signal_handler);
+
+    // Sonsuz döngü
+    while(1) { }
+
+    return 0;
+}
+ ```
+- exit()
+  
+
+  
 # sinyalleri kullanarak veri değişim programı yazmak
  ```bash
 #include <stdio.h>
