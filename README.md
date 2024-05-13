@@ -96,8 +96,21 @@ kill() fonksiyonu, işlemi başarılı bir şekilde sonlandırdıysa 0 değerini
 
 
 # usleep()
-  
+ fonksiyonu, belirli bir miktar zaman boyunca işlemi uyutarak çalışmasını duraklatır.
+ ```
+ int usleep(useconds_t microseconds);
+ ```
+- microseconds, uyuma süresini mikrosaniye cinsinden belirtir.
+Fonksiyon çağrıldığında, program belirtilen süre boyunca uyur ve ardından işlemlerine devam eder.
+(1 saniye = 1000000 mikrosaniye)
 
+# sleep()
+sleep() fonksiyonu, bir programın belirli bir süre boyunca çalışmasını duraklatır. Bu süre saniye cinsinden belirtilir.
+ ```
+unsigned int sleep(unsigned int seconds);
+ ```
+- seconds, duraklatma süresini saniye cinsinden belirtir.
+- 
 # sinyalleri kullanarak veri değişim programı yazmak
  ```bash
 #include <stdio.h>
