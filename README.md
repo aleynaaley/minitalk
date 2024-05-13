@@ -15,7 +15,7 @@ Yani C programlama dilinde sinyaller, işletim sistemi veya kullanıcı tarafın
 - SIGUSR1 ve SIGUSR2 (Kullanıcı Tanımlı Sinyaller): Bu sinyaller, kullanıcı tarafından belirli eylemler için tanımlanabilir. Programın belirli bir noktasında kullanıcı tarafından tanımlanan özel bir eylemi tetiklemek için kullanılabilirler.
 
 # Kullanılan Bazı Fonksiyonlar 
- - getpid()
+# getpid()
  Fonksiyon, çağrılan işlemin kimlik numarasını (process ID veya PID olarak da bilinir) döndürür. Bu işlev, genellikle benzersiz geçici dosya adları oluşturan rutinler tarafından kullanılır.
  ```bash
 #include <stdio.h>
@@ -37,15 +37,15 @@ int main(void) {
  ```
 Bu kod parçası, çalıştırıldığında, çağrılan işlemin işlem kimliğini ekrana yazdırır. Bu işlem kimliği, işletim sistemi tarafından otomatik olarak atanır ve her işlem için benzersizdir. Fonksiyonun döndürdüğü değer pid_t tipindedir, bu tip genellikle unsigned int türünde bir veri tipidir.
 
-- signal()
+# signal()
   Bir sinyalin nasıl işleneceğini belirlemek için kullanılır.
  ```bash
 
 void (*signal(int sig, void (*func)(int)))(int);
 
  ```
-sig: Sinyal numarasını temsil eder ve SIG makroları ile uyumludur.
-func: Sinyal oluştuğunda çağrılacak fonksiyonu temsil eder. Eğer func SIG_DFL ise, varsayılan işleyici çağrılır. Eğer func SIG_IGN ise, sinyal yok sayılır. Eğer func bir fonksiyona işaret ederse, bir sinyal algılandığında varsayılan fonksiyon (SIG_DFL) çağrılır, ardından func fonksiyonu çağrılır.
+- sig: Sinyal numarasını temsil eder ve SIG makroları ile uyumludur.
+- func: Sinyal oluştuğunda çağrılacak fonksiyonu temsil eder. Eğer func SIG_DFL ise, varsayılan işleyici çağrılır. Eğer func SIG_IGN ise, sinyal yok sayılır. Eğer func bir fonksiyona işaret ederse, bir sinyal algılandığında varsayılan fonksiyon (SIG_DFL) çağrılır, ardından func fonksiyonu çağrılır.
 Yani sig ile nerede, ne durumda gelen sinyalleri alacağı diğeri func da bu duurmda ne çalışacağını belirler.
 
  ```
@@ -68,10 +68,36 @@ int main() {
     return 0;
 }
  ```
-- exit()
+# exit()
+ fonksiyonu, bir programın anında sonlandırılmasını sağlar. Bu fonksiyon, <stdlib.h> başlık dosyasında tanımlıdır.
+ ```
+  void exit(int status);
+ ```
+Status parametresi, programın sonlandırılma durumunu belirtir. Genellikle, EXIT_SUCCESS veya EXIT_FAILURE makroları kullanılarak bu durum belirtilir. EXIT_SUCCESS programın başarılı bir şekilde tamamlandığını, EXIT_FAILURE ise bir hata oluştuğunu belirtir.
+exit() fonksiyonu çağrıldığında, program anında sonlanır ve kontrol işletim sistemine geri döner. Eğer main() fonksiyonu içinde return anahtar kelimesi kullanılarak bir değer döndürülmemişse, exit() fonksiyonu programın sonlandırılması için kullanılır.
+
+# kill ()
+  fonksiyonu, bir işlemi belirtilen bir sinyal ile sonlandırmak veya belirli bir işlem grubuna bir sinyal göndermek için kullanılır. Bu fonksiyon, Unix benzeri işletim sistemlerinde kullanılır ve işlem kontrolü için önemlidir.
+
+ ```
+  int kill(pid_t pid, int sig);
+ ```
+
+- pid, hedef işlemin süreç kimliğini (PID) belirtir.
+- sig, gönderilecek sinyalin numarasını belirtir.
+Eğer pid parametresi:
+- Pozitif bir değer ise, belirtilen PID'e sahip işlem hedeflenir.
+- 0 ise, işlem grubundaki tüm süreçlere sinyal gönderilir.
+- 1 ise, belirtilen sinyal, çağıran sürecin yetkilendirmeleri ile uyumlu tüm süreçlere gönderilir.
+- -pid değeri ile negatif ise, belirtilen işlem grubundaki tüm süreçlere sinyal gönderilir.
+sig parametresi ise gönderilecek olan sinyalin numarasını belirtir. Bu sinyal numaraları POSIX standartlarına göre belirlenmiştir. Örneğin, SIGKILL (9) sinyali bir işlemi acilen sonlandırmak için kullanılabilir.
+
+kill() fonksiyonu, işlemi başarılı bir şekilde sonlandırdıysa 0 değerini döndürür. Eğer bir hata oluşursa, -1 değeri döner ve errno değişkenine ilgili hata kodu atanır.
+
+
+# usleep()
   
 
-  
 # sinyalleri kullanarak veri değişim programı yazmak
  ```bash
 #include <stdio.h>
