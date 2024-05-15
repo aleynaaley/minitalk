@@ -5,24 +5,21 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
-SRCS = server.c \
-client.c \
-		
-OBJS = $(SRCS:.c=.o)
+all: $(NAME)
 
-								 
-all: $(NAME)                    
+$(NAME): $(SERVER) $(CLIENT)
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)        
+$(SERVER): server.c minitalk.h
+	$(CC) $(CFLAGS) -o server server.c
+
+$(CLIENT): client.c minitalk.h
+	$(CC) $(CFLAGS) -o client client.c
 
 clean:
-	$(RM) $(OBJS)                  
+	$(RM) $(SERVER) $(CLIENT)
 
- 
-fclean: clean 
-	$(RM) $(NAME)
+fclean: clean
 
 re: fclean all
 
-.PHONY: all re fclean clean
+.PHONY: all $(NAME) clean fclean re
