@@ -54,12 +54,14 @@ void found_bit(pid_t pid, char chr)
 {
     int i;
 	int bit;
-
-    for (i = 0; i < 8; i++)
+if ((chr >= 'a' && chr <= 'z') || (chr >= 'A' && chr <= 'Z') || (chr >= '0' && chr <= '9'))
     {
+    	for (i = 0; i < 8; i++)
+    	{
 		bit = (chr >> (7 - i)) & 1;
-        send_signal(pid, bit);
-        usleep(100);  // Sinyal gönderimi arasında kısa bir gecikme
+       		send_signal(pid, bit);
+        	usleep(100);  // Sinyal gönderimi arasında kısa bir gecikme
+    	}
     }
 }
 
