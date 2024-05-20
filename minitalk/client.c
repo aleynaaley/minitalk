@@ -54,7 +54,7 @@ void found_bit(pid_t pid, char chr)
 {
     int i;
 	int bit;
-if (chr >= 32 && chr <= 126)// printable değerler ise yazdıracak
+if ((chr >= 32 && chr <= 126)||( chr >= 9 && chr <= 13))// printable değerler ise yazdıracak
     {
     	for (i = 0; i < 8; i++)
     	{
