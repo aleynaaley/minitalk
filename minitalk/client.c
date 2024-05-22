@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alerkul <alerkul@student.42istanbul.com.t  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 18:13:15 by alerkul           #+#    #+#             */
+/*   Updated: 2024/04/29 18:13:17 by alerkul          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 static int	ft_atoi(const char *str)
@@ -27,50 +39,50 @@ static int	ft_atoi(const char *str)
 			return (0);
 	}
 	return (num);
+}//sonucu pid_t olarak döndür
+
+
+void send_signal(pid_t pid, int bit)
+{
+    if (bit == 1)
+        kill(pid, SIGUSR1);
+    else if (bit == 0)
+        kill(pid, SIGUSR2);
 }
 
-static void	send_signal(pid_t pid, int bit)
+void found_bit(pid_t pid, char chr)
 {
-	if (bit == 1)
-		kill(pid, SIGUSR1);
-	else if (bit == 0)
-		kill(pid, SIGUSR2);
+    int i;
+	int bit;
+if ((chr >= 32 && chr <= 126)||( chr >= 9 && chr <= 13))// printable değerler ise yazdıracak
+    {
+    	for (i = 0; i < 8; i++)
+    	{
+		bit = (chr >> (7 - i)) & 1;
+       		send_signal(pid, bit);
+        	usleep(42);  // Sinyal gönderimi arasında kısa bir gecikme
+    	}
+    }
 }
 
-static void	found_bit(pid_t pid, char chr)
+
+int main(int argc, char **argv)
 {
-	int	i;
-	int	bit;
+    pid_t process_id;
+	int i;
 
 	i = 0;
-	if (chr >= 0 && chr <= 127)
-	{
-		while (i < 8)
+    if(argc == 3)
+    {
+        process_id = ft_atoi(argv[1]);
+		while(argv[2][i])
 		{
-			bit = (chr >> (7 - i)) & 1;
-			send_signal(pid, bit);
-			i++;
-			usleep(100);
-		}
-	}
-}
-
-int	main(int argc, char **argv)
-{
-	pid_t	process_id;
-	int		i;
-
-	i = 0;
-	if (argc == 3)
-	{
-		process_id = ft_atoi(argv[1]);
-		while (argv[2][i])
-		{
-			found_bit(process_id, argv[2][i]);
+        	found_bit(process_id,argv[2][i]);
 			i++;
 		}
-	}
-	else
-		write(1, "please enter only 3 arguments", 29);
-	return (0);
+    }
+    else
+        write(1,"The number of arguments you entered is incorrect, enter only 3 arguments",72);
+    return 0;
 }
+
