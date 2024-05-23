@@ -50,7 +50,7 @@ static void	found_bit(pid_t pid, char chr)
 			bit = (chr >> (7 - i)) & 1;
 			send_signal(pid, bit);
 			i++;
-			usleep(100);
+			usleep(42);
 		}
 	}
 }
